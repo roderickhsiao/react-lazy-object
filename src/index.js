@@ -33,9 +33,9 @@ class LazyObject extends PureComponent {
   renderElement() {
     const { nodeName } = this.props;
 
-    if (nodeName === 'img') {
+    if (nodeName === 'img' || nodeName === 'div') {
       // prefetch
-      const ele = document.createElement(this.props.nodeName);
+      const ele = new Image();
       ele.onload = (e) => {
         this.setState({
           status: STATUS_LOADED
@@ -51,16 +51,32 @@ class LazyObject extends PureComponent {
   render() {
     const {
       aspectRatioProps,
-      viewportProps,
-      nodeName,
       innerRef,
       inViewport,
+      nodeName,
+      src,
+      viewportProps,
+      style,
       ...others
     } = this.props;
 
+    const targetSrc = this.state.status ? this.props.src : DUMMY_SRC;
+    var customProps = {...others};
+
+    if (nodeName === 'div') {
+      // background image
+      customProps.style = {
+        backgroundSize: 'cover',
+        backgroundImage: `url(${targetSrc})`,
+        ...style
+      };
+    } else {
+      customProps.src = targetSrc;
+    }
+
     return (
       <AspectRatio {...aspectRatioProps}>
-        {React.createElement(nodeName, {...others, src: (this.state.status ? this.props.src : DUMMY_SRC)})}
+        {React.createElement(nodeName, {...customProps})}
       </AspectRatio>
     );
   }

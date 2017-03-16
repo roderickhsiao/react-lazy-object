@@ -54,4 +54,17 @@ storiesOf('Lazy Object', module)
         src='https://www.youtube.com/embed/SADub7W22Zg'
       />
     </div>
+  )).add('Lazy Background Image', () => (
+    <div>
+      <div style={{ height: '600px' }}>Scroll down to load image</div>
+      <LazyObject
+        aspectRatioProps={{
+          ratio: '576/1024',
+          style: { maxWidth: '400px' }
+        }}
+        nodeName='div'
+        onLoad={() => action('Image loaded')}
+        src='https://c1.staticflickr.com/1/427/32495946961_ce3835680c_b.jpg'
+      />
+    </div>
   ));
