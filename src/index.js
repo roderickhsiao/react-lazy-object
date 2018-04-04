@@ -2,6 +2,8 @@ import React, { PureComponent } from 'react';
 import AspectRatio from 'react-aspect-ratio';
 import handleViewport from 'react-in-viewport';
 
+import polyfill from 'react-lifecycles-compat';
+
 const DUMMY_SRC = 'https://www.gstatic.com/psa/static/1.gif';
 const STATUS_INIT = 0;
 const STATUS_LOADING = 1;
@@ -17,6 +19,18 @@ class LazyObject extends PureComponent {
     };
     this.renderElement = this.renderElement.bind(this);
   }
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (prevState.status === STATUS_LOADED) {
+      return null;
+    }
+    const status = nextProps.inViewport ? STATUS_LOADING : STATUS_INIT;
+    if (status !== prevState.status) {
+      return {
+        status
+      };
+    }
+    return null;
+  }
 
   componentDidMount() {
     if (this.props.inViewport) {
@@ -24,8 +38,8 @@ class LazyObject extends PureComponent {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.inViewport) {
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.inViewport && prevState.status !== STATUS_LOADED) {
       this.renderElement();
     }
   }
@@ -87,4 +101,4 @@ LazyObject.defaultProps = {
   onLoad: () => {}
 };
 
-export default handleViewport(LazyObject);
+export default handleViewport(polyfill(LazyObject));
