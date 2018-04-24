@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import AspectRatio from 'react-aspect-ratio';
 import handleViewport from 'react-in-viewport';
 
-import polyfill from 'react-lifecycles-compat';
+import { polyfill } from 'react-lifecycles-compat';
 
 const DUMMY_SRC = 'https://www.gstatic.com/psa/static/1.gif';
 const STATUS_INIT = 0;
@@ -12,13 +12,11 @@ const STATUS_LOADED = 2;
 const OBJECT_SOURCE = ['img', 'iframe', 'object', 'video', 'embed', 'audio'];
 
 class LazyObject extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      status : this.props.inViewport ? STATUS_LOADING : STATUS_INIT
-    };
-    this.renderElement = this.renderElement.bind(this);
-  }
+  static defaultProps = {
+    nodeName: 'img',
+    onLoad: () => {}
+  };
+
   static getDerivedStateFromProps(nextProps, prevState) {
     if (prevState.status === STATUS_LOADED) {
       return null;
@@ -30,6 +28,14 @@ class LazyObject extends PureComponent {
       };
     }
     return null;
+  }
+  
+  constructor(props) {
+    super(props);
+    this.state = {
+      status: this.props.inViewport ? STATUS_LOADING : STATUS_INIT
+    };
+    this.renderElement = this.renderElement.bind(this);
   }
 
   componentDidMount() {
@@ -50,16 +56,22 @@ class LazyObject extends PureComponent {
     if (nodeName === 'img' || nodeName === 'div') {
       // prefetch
       const ele = new Image();
-      ele.onload = (e) => {
-        this.setState({
-          status: STATUS_LOADED
-        }, this.props.onLoad());
+      ele.onload = e => {
+        this.setState(
+          {
+            status: STATUS_LOADED
+          },
+          this.props.onLoad()
+        );
       };
       ele.src = this.props.src;
     } else {
-      this.setState({
-        status: STATUS_LOADED
-      }, this.props.onLoad())
+      this.setState(
+        {
+          status: STATUS_LOADED
+        },
+        this.props.onLoad()
+      );
     }
   }
   render() {
@@ -75,7 +87,7 @@ class LazyObject extends PureComponent {
     } = this.props;
 
     const targetSrc = this.state.status ? this.props.src : DUMMY_SRC;
-    var customProps = {...others};
+    var customProps = { ...others };
 
     if (nodeName === 'div') {
       // background image
@@ -90,15 +102,10 @@ class LazyObject extends PureComponent {
 
     return (
       <AspectRatio {...aspectRatioProps}>
-        {React.createElement(nodeName, {...customProps})}
+        {React.createElement(nodeName, { ...customProps })}
       </AspectRatio>
     );
   }
-};
-
-LazyObject.defaultProps = {
-  nodeName: 'img',
-  onLoad: () => {}
-};
+}
 
 export default handleViewport(polyfill(LazyObject));
