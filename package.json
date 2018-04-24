@@ -1,6 +1,6 @@
 {
   "name": "react-lazy-object",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "React Lazy Object Component",
   "repository": {
     "type": "git",
@@ -24,6 +24,7 @@
     "babel-core": "^6.14.0",
     "babel-eslint": "^6.1.2",
     "babel-loader": "^6.2.5",
+    "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
