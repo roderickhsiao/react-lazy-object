@@ -51,7 +51,7 @@
   },
   "dependencies": {
     "react-aspect-ratio": "^1.0.3",
-    "react-in-viewport": "~0.0.10",
+    "react-in-viewport": "~0.0.38",
     "react-lifecycles-compat": "^3.0.0"
   },
   "main": "dist/index.js",
