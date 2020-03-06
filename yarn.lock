@@ -5776,7 +5776,7 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.5.0, prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.8, prop-types@^15.5.9, prop-types@^15.6.0, prop-types@^15.6.1:
+prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.8, prop-types@^15.5.9, prop-types@^15.6.0, prop-types@^15.6.1:
   version "15.6.1"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.1.tgz#36644453564255ddda391191fb3a125cbdf654ca"
   dependencies:
@@ -5939,12 +5939,10 @@ rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-aspect-ratio@^1.0.3:
-  version "1.0.25"
-  resolved "https://registry.yarnpkg.com/react-aspect-ratio/-/react-aspect-ratio-1.0.25.tgz#8770cfc1dc7cd5c68ce3524151fa649260925b97"
-  dependencies:
-    prop-types "^15.5.0"
-    react-lifecycles-compat "^3.0.0"
+react-aspect-ratio@^1.0.42:
+  version "1.0.42"
+  resolved "https://registry.yarnpkg.com/react-aspect-ratio/-/react-aspect-ratio-1.0.42.tgz#04bf3e4d11c484bc5638ef5b22b84fb428ebc809"
+  integrity sha512-TlDS7GZ6Fot6yMo1OYWrcxI/cggGsU4xsfXLastv6FfcZq0e99LeMq+OUbrlEjtOzi00QzNvkoj5T2vDqJNAmw==
 
 react-dev-utils@^5.0.0:
   version "5.0.1"
